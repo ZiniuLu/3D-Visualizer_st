@@ -66,7 +66,26 @@ bool					   Stitches::load_stitches(std::string const& path)
 		temp.out_0 = out[0];
 		temp.out_1 = out[1];
 
-		temp.color = RVec_3d(0, 1, 0);
+		switch (temp.type)
+		{
+		case 's':
+		case 'e':
+		{
+			temp.color = RVec_3d(1, 0, 0); // red
+			break;
+		}
+		case 'i':
+		case 'd':
+		{
+			temp.color = RVec_3d(0, 1, 1); // cyan
+			break;
+		}
+		default:
+		{
+			temp.color = RVec_3d(0, 0, 0); // black
+			break;
+		}
+		}
 
 		if (!temp.check_type()) 
 		{
@@ -104,32 +123,11 @@ bool					   Stitches::display()
 	{
 		auto& idx = st.index;
 		auto& v = st.vertex;
+		auto& color_v = st.color;
 
 		V(idx, 0) = v(0);
 		V(idx, 1) = v(1);
 		V(idx, 2) = v(2);
-		
-		RVec_3d color_v;
-		switch (st.type)
-		{
-		case 's':
-		case 'e':
-		{
-			color_v = RVec_3d(1, 0, 0); // red
-			break;
-		}
-		case 'i':
-		case 'd':
-		{
-			color_v = RVec_3d(0, 1, 1); // cyan
-			break;
-		}
-		default:
-		{
-			color_v = RVec_3d(0, 0, 0); // black
-			break;
-		}
-		}
 
 		viewer.data().add_points(v, color_v);
 		//std::cout << "V" << idx << ": " << v << std::endl;

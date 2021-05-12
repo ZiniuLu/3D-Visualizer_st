@@ -27,10 +27,12 @@ cmake-gui ..
 
 ## Usage
 
-1. copy .st file into directory `./data/`
-2. modify input parameters in the `./settings/Settings.csv` file
+1. build the entire solution in Visual Studio 2019
+2. copy .st file into directory `./data/`
+3. modify input parameters in the `./settings/Settings.csv` file
+4. run `./build/Release/3D-Visualizer_st.exe`
 
-Example:
+## Example of  Settings.csv
 
 ```c++
 ####,FILE_NAME

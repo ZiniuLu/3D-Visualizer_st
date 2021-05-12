@@ -4,6 +4,7 @@
 
 #include "Stitch.h"
 
+// Stitch
 bool Stitch::check_type() const
 {
 	if (type == Start) 
@@ -37,6 +38,10 @@ bool Stitch::check_type() const
 	}
 }
 
+
+
+
+// Stitches
 bool Stitches::load_stitches(std::string const& path)
 {
 	std::ifstream file(path);

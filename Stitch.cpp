@@ -37,11 +37,17 @@ bool Stitch::check_type() const
 	}
 }
 
-bool					   Stitches::load_stitches(std::string const& path)
+bool Stitches::load_stitches(std::string const& path)
 {
 	std::ifstream file(path);
 	std::string   line;
 	uint32_t	  idx = 0;
+
+	if (!file.is_open())
+	{
+		std::cout << "Cannot open file£º \"" << path << "\" !";
+		return false;
+	}
 
 	while (std::getline(file, line))
 	{
@@ -82,7 +88,7 @@ bool					   Stitches::load_stitches(std::string const& path)
 		}
 		default:
 		{
-			temp.color = RVec_3d(0, 0, 0); // black
+			temp.color = RVec_3d(0.7, 0.7, 0.7); // grey
 			break;
 		}
 		}
@@ -107,14 +113,19 @@ const std::vector<Stitch>& Stitches::get()
 	return this->stitches;
 }
 
-bool					   Stitches::display()
+bool Stitches::display()
+{
+	return display(0, 0);
+}
+
+bool Stitches::display(size_t pos, size_t len)
 {
 	uint32_t numV = this->stitches.size();
 	uint32_t numE;
 
 	IGL_Viewer viewer;
-	viewer.data().line_width = 5;
-	viewer.data().point_size = 10;
+	viewer.data().line_width = 4;
+	viewer.data().point_size = 6;
 
 	// add vertices
 	MAT_3d V;
@@ -136,12 +147,17 @@ bool					   Stitches::display()
 
 	// add edges
 	auto it_stitches_begin = this->stitches.begin();
-	auto it_stitches_end = this->stitches.end();
-	auto it_stitches = it_stitches_begin;
+	auto it_stitches_end   = this->stitches.end();
 
-	auto it_last_stitch = it_stitches_begin;
+	size_t len_max     = it_stitches_end - it_stitches_begin;
+	auto it_line_begin = (pos > 0 && pos < len_max)         ? it_stitches_begin + pos : it_stitches_begin;
+	auto it_line_end   = (len > 0 && (pos + len) < len_max) ? it_line_begin + len     : it_stitches_end;
 
-	for (; it_stitches != it_stitches_end; ++it_stitches)
+	auto it_stitches = it_line_begin;
+	auto it_last_stitch = it_line_begin;
+	
+
+	for (; it_stitches != it_line_end; ++it_stitches)
 	{
 		auto& idx_last = it_last_stitch->index;
 		auto& idx = it_stitches->index;

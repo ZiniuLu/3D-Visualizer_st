@@ -28,11 +28,16 @@ cmake-gui ..
 ## Usage
 
 1. copy .st file into directory `./data/`
-2. change the path of `.st` file in the `main` function
+2. modify input parameters in the `./settings/Settings.csv` file
 
-For example:
+Example:
 
 ```c++
-std::string path = "../data/teddy3.st";
+####,FILE_NAME
+FILE_NAME,teddy2.st
+,
+####,PARAMETER
+first-line,1000
+length,2000
 ```
 

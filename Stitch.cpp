@@ -170,8 +170,8 @@ bool Stitches::display(size_t pos, size_t len)
 		if (idx == 0) { continue; }
 		else
 		{
-			auto& it_source = V.row(idx_last);
-			auto& it_target = V.row(idx);
+			const auto& it_source = V.row(idx_last);
+			const auto& it_target = V.row(idx);
 			
 			RVec_3d color_eg;
 			if (it_last_stitch->direction == 'c' && it_stitches->direction == 'c')
@@ -196,9 +196,9 @@ bool Stitches::display(size_t pos, size_t len)
 		case 'i':
 		{
 			uint32_t in_0 = it_stitches->in_0;
-			auto& it_source = V.row(in_0);
-			auto& it_target = V.row(idx);
-			auto& color_eg = RVec_3d(0, 1, 0);	// green
+			const auto& it_source = V.row(in_0);
+			const auto& it_target = V.row(idx);
+			const auto& color_eg = RVec_3d(0, 1, 0);	// green
 
 			viewer.data().add_edges(it_source, it_target, color_eg);
 			//std::cout << "E " << in_0 << " -> " << idx << std::endl;
@@ -210,10 +210,10 @@ bool Stitches::display(size_t pos, size_t len)
 			uint32_t in_0 = it_stitches->in_0;
 			uint32_t in_1 = it_stitches->in_1;
 
-			auto& it_source_0 = V.row(in_0);
-			auto& it_source_1 = V.row(in_1);
-			auto& it_target = V.row(idx);
-			auto& color_eg = RVec_3d(0, 1, 0);	// green
+			const auto& it_source_0 = V.row(in_0);
+			const auto& it_source_1 = V.row(in_1);
+			const auto& it_target = V.row(idx);
+			const auto& color_eg = RVec_3d(0, 1, 0);	// green
 
 			viewer.data().add_edges(it_source_0, it_target, color_eg);
 			viewer.data().add_edges(it_source_1, it_target, color_eg);
